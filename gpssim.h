@@ -3,8 +3,8 @@
 
 #define FLOAT_CARR_PHASE // For RKT simulation. Higher computational load, but smoother carrier phase.
 
-#define TRUE	(1)
-#define FALSE	(0)
+#define TRUE  (1)
+#define FALSE  (0)
 
 /*! \brief Maximum length of a line in a text file (RINEX, motion) */
 #define MAX_CHAR (100)
@@ -57,7 +57,7 @@
 #define OMEGA_EARTH 7.2921151467e-5
 #define PI 3.1415926535898
 
-#define WGS84_RADIUS	6378137.0
+#define WGS84_RADIUS  6378137.0
 #define WGS84_ECCENTRICITY 0.0818191908426
 
 #define R2D 57.2957795131
@@ -81,103 +81,103 @@
 /*! \brief Structure representing GPS time */
 typedef struct
 {
-	int week;	/*!< GPS week number (since January 1980) */
-	double sec; 	/*!< second inside the GPS \a week */
+  int week;  /*!< GPS week number (since January 1980) */
+  double sec;   /*!< second inside the GPS \a week */
 } gpstime_t;
 
 /*! \brief Structure repreenting UTC time */
 typedef struct
 {
-	int y; 		/*!< Calendar year */
-	int m;		/*!< Calendar month */
-	int d;		/*!< Calendar day */
-	int hh;		/*!< Calendar hour */
-	int mm;		/*!< Calendar minutes */
-	double sec;	/*!< Calendar seconds */
+  int y;     /*!< Calendar year */
+  int m;    /*!< Calendar month */
+  int d;    /*!< Calendar day */
+  int hh;    /*!< Calendar hour */
+  int mm;    /*!< Calendar minutes */
+  double sec;  /*!< Calendar seconds */
 } datetime_t;
 
 /*! \brief Structure representing ephemeris of a single satellite */
 typedef struct
 {
-	int vflg;	/*!< Valid Flag */
-	datetime_t t;
-	gpstime_t toc;	/*!< Time of Clock */
-	gpstime_t toe;	/*!< Time of Ephemeris */
-	int iodc;	/*!< Issue of Data, Clock */
-	int iode;	/*!< Isuse of Data, Ephemeris */
-	double deltan;	/*!< Delta-N (radians/sec) */
-	double cuc;	/*!< Cuc (radians) */
-	double cus;	/*!< Cus (radians) */
-	double cic;	/*!< Correction to inclination cos (radians) */
-	double cis;	/*!< Correction to inclination sin (radians) */
-	double crc;	/*!< Correction to radius cos (meters) */
-	double crs;	/*!< Correction to radius sin (meters) */
-	double ecc;	/*!< e Eccentricity */
-	double sqrta;	/*!< sqrt(A) (sqrt(m)) */
-	double m0;	/*!< Mean anamoly (radians) */
-	double omg0;	/*!< Longitude of the ascending node (radians) */
-	double inc0;	/*!< Inclination (radians) */
-	double aop;
-	double omgdot;	/*!< Omega dot (radians/s) */
-	double idot;	/*!< IDOT (radians/s) */
-	double af0;	/*!< Clock offset (seconds) */
-	double af1;	/*!< rate (sec/sec) */
-	double af2;	/*!< acceleration (sec/sec^2) */
-	double tgd;	/*!< Group delay L2 bias */
-	int svhlth;
-	int codeL2;
-	// Working variables follow
-	double n; 	/*!< Mean motion (Average angular velocity) */
-	double sq1e2;	/*!< sqrt(1-e^2) */
-	double A;	/*!< Semi-major axis */
-	double omgkdot; /*!< OmegaDot-OmegaEdot */
+  int vflg;  /*!< Valid Flag */
+  datetime_t t;
+  gpstime_t toc;  /*!< Time of Clock */
+  gpstime_t toe;  /*!< Time of Ephemeris */
+  int iodc;  /*!< Issue of Data, Clock */
+  int iode;  /*!< Isuse of Data, Ephemeris */
+  double deltan;  /*!< Delta-N (radians/sec) */
+  double cuc;  /*!< Cuc (radians) */
+  double cus;  /*!< Cus (radians) */
+  double cic;  /*!< Correction to inclination cos (radians) */
+  double cis;  /*!< Correction to inclination sin (radians) */
+  double crc;  /*!< Correction to radius cos (meters) */
+  double crs;  /*!< Correction to radius sin (meters) */
+  double ecc;  /*!< e Eccentricity */
+  double sqrta;  /*!< sqrt(A) (sqrt(m)) */
+  double m0;  /*!< Mean anamoly (radians) */
+  double omg0;  /*!< Longitude of the ascending node (radians) */
+  double inc0;  /*!< Inclination (radians) */
+  double aop;
+  double omgdot;  /*!< Omega dot (radians/s) */
+  double idot;  /*!< IDOT (radians/s) */
+  double af0;  /*!< Clock offset (seconds) */
+  double af1;  /*!< rate (sec/sec) */
+  double af2;  /*!< acceleration (sec/sec^2) */
+  double tgd;  /*!< Group delay L2 bias */
+  int svhlth;
+  int codeL2;
+  // Working variables follow
+  double n;   /*!< Mean motion (Average angular velocity) */
+  double sq1e2;  /*!< sqrt(1-e^2) */
+  double A;  /*!< Semi-major axis */
+  double omgkdot; /*!< OmegaDot-OmegaEdot */
 } ephem_t;
 
 typedef struct
 {
-	int enable;
-	int vflg;
-	double alpha0,alpha1,alpha2,alpha3;
-	double beta0,beta1,beta2,beta3;
-	double A0,A1;
-	int dtls,tot,wnt;
-	int dtlsf,dn,wnlsf;
+  int enable;
+  int vflg;
+  double alpha0,alpha1,alpha2,alpha3;
+  double beta0,beta1,beta2,beta3;
+  double A0,A1;
+  int dtls,tot,wnt;
+  int dtlsf,dn,wnlsf;
 } ionoutc_t;
 
 typedef struct
 {
-	gpstime_t g;
-	double range; // pseudorange
-	double rate;
-	double d; // geometric distance
-	double azel[2];
-	double iono_delay;
+  gpstime_t g;
+  double range; // pseudorange
+  double rate;
+  double d; // geometric distance
+  double azel[2];
+  double iono_delay;
 } range_t;
 
 /*! \brief Structure representing a Channel */
 typedef struct
 {
-	int prn;	/*< PRN Number */
-	int ca[CA_SEQ_LEN]; /*< C/A Sequence */
-	double f_carr;	/*< Carrier frequency */
-	double f_code;	/*< Code frequency */
+  int prn;  /*< PRN Number */
+  int ca[CA_SEQ_LEN]; /*< C/A Sequence */
+  double f_carr;  /*< Carrier frequency */
+  double f_code;  /*< Code frequency */
 #ifdef FLOAT_CARR_PHASE
-	double carr_phase;
+  double carr_phase;
 #else
-	unsigned int carr_phase; /*< Carrier phase */
-	int carr_phasestep;	/*< Carrier phasestep */
+  unsigned int carr_phase; /*< Carrier phase */
+  int carr_phasestep;  /*< Carrier phasestep */
 #endif
-	double code_phase; /*< Code phase */
-	gpstime_t g0;	/*!< GPS time at start */
-	unsigned long sbf[5][N_DWRD_SBF]; /*!< current subframe */
-	unsigned long dwrd[N_DWRD]; /*!< Data words of sub-frame */
-	int iword;	/*!< initial word */
-	int ibit;	/*!< initial bit */
-	int icode;	/*!< initial code */
-	int dataBit;	/*!< current data bit */
-	int codeCA;	/*!< current C/A code */
-	double azel[2];
-	range_t rho0;
+  double code_phase; /*< Code phase */
+  gpstime_t g0;  /*!< GPS time at start */
+  unsigned long sbf[5][N_DWRD_SBF]; /*!< current subframe */
+  unsigned long dwrd[N_DWRD]; /*!< Data words of sub-frame */
+  int iword;  /*!< initial word */
+  int ibit;  /*!< initial bit */
+  int icode;  /*!< initial code */
+  int dataBit;  /*!< current data bit */
+  int codeCA;  /*!< current C/A code */
+  double azel[2];
+  range_t rho0;
 } channel_t;
 
 #endif
