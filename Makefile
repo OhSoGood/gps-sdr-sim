@@ -34,6 +34,9 @@ time: gps-sdr-sim
 	time ./gps-sdr-sim -e brdc3540.14n -u circle.csv -b 8
 	time ./gps-sdr-sim -e brdc3540.14n -u circle.csv -b 16
 
+meacon.elf: .FORCE
+	g++ -O3 -std=c++17 meacon.cc -o meacon.elf
+
 .FORCE:
 
 YEAR?=$(shell date +"%Y")
