@@ -37,6 +37,9 @@ time: gps-sdr-sim
 meacon.elf: .FORCE
 	g++ -O3 -std=c++17 meacon.cc -o meacon.elf
 
+advance.elf: .FORCE
+	g++ -O3 -std=c++17 advance.cc -o advance.elf
+
 .FORCE:
 
 YEAR?=$(shell date +"%Y")
