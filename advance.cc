@@ -76,19 +76,34 @@ int main(int argc, char* argv[])
 
   while (input.good())
   {
+    // Read in sample, it is the current sample of the spoofed signal, and the
+    //   (t + max_time_offset) sample of the clean signal
     input.read(reinterpret_cast<char*>(&sample), sizeof sample);
 
     sample_index++;
 
+    // clean_buffer.front() is always the sample which will be written to the
+    //   output stream
+    //
+    //   when time_offset == 0, the sample is pushed into clean_buffer, and then
+    //   directly popped out to be written to the output stream
+    //
+    //   when time_offset is non-zero, the sample is pushed into the back of the
+    //   clean_buffer, then when it comes time to write to output the front of
+    //   the clean_buffer is written, along with a scale of the back of the
+    //   clean_buffer
+    //
+    //   when time_offset increments the clean_buffer size is allowed to
+    //   increase and the oldest sample is not written, instead it is held til
+    //   the next iteration of the loop, when the appropriate time_offset sample
+    //   becomes available
+    clean_buffer.push_back(sample);
+
     if (power == max_power)
     {
-      clean_buffer.push_back(sample);
-
-      sample += (power * clean_buffer.front());
-
       if (time_offset < max_time_offset)
       {
-        time_offset += 1 / (2 * 60.0 * time_onset);
+        time_offset += max_time_offset / (sample_rate * 2 * 60.0 * time_onset);
 
         if (time_offset >= max_time_offset)
           std::cout << "Full on attack starts at "
@@ -99,8 +114,6 @@ int main(int argc, char* argv[])
     }
     else if (sample_index > start_time)
     {
-      sample *= (1 + power);
-
       power += max_power / (sample_rate * 2 * 60.0 * power_onset);
 
       if (power >= max_power)
@@ -121,9 +134,14 @@ int main(int argc, char* argv[])
       std::cerr << "Error, didn't fall into anything" << std::endl;
 
     if (clean_buffer.size() > time_offset)
-      clean_buffer.pop_front();
+    {
+      // Overwrite sample, it now becomes the sample ready to be written
+      sample = clean_buffer.front() + (power * clean_buffer.back());
 
-    output.write(reinterpret_cast<char*>(&sample), 2);
+      output.write(reinterpret_cast<char*>(&sample), 2);
+
+      clean_buffer.pop_front();
+    }
   }
 
   std::cout << "Finished processing "
