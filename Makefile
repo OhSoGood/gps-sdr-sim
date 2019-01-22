@@ -40,6 +40,9 @@ meacon.elf: .FORCE
 advance.elf: .FORCE
 	g++ -O3 -std=c++17 advance.cc -o advance.elf
 
+doe_demo.elf: .FORCE
+	g++ -O3 -std=c++17 doe_demo.cc -o doe_demo.elf
+
 .FORCE:
 
 YEAR?=$(shell date +"%Y")
