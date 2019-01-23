@@ -6,9 +6,7 @@ all: gps-sdr-sim
 SHELL=/bin/bash
 CC=gcc
 CFLAGS=-O3 -Wall -D_FILE_OFFSET_BITS=64
-ifdef USER_MOTION_SIZE
-CFLAGS+=-DUSER_MOTION_SIZE=$(USER_MOTION_SIZE)
-endif
+CFLAGS+=-DUSER_MOTION_SIZE=12000
 LDFLAGS=-lm
 
 gps-sdr-sim: gpssim.o
@@ -42,6 +40,12 @@ advance.elf: .FORCE
 
 doe_demo.elf: .FORCE
 	g++ -O3 -std=c++17 doe_demo.cc -o doe_demo.elf
+
+gpssim.bin: gps-sdr-sim
+	./gps-sdr-sim -e brdc0010.19n -l 30.648158,-96.475147
+
+demo_gpssim.bin: doe_demo.elf gpssim.bin
+	./doe_demo.elf gpssim.bin
 
 .FORCE:
 
